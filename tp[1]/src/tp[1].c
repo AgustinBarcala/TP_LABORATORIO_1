@@ -33,6 +33,7 @@ La diferencia de precio es : r “
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "calcular.h"
 
 int main(void) {
@@ -45,8 +46,9 @@ int main(void) {
 	int calcular;
 	int mostrar;
 	int cargaForzada;
-
-
+	int flagOpcion1 = 0;
+	int flagOpcion2= 0;
+	int flagOpcion3 = 0;
 
 	do{
 		printf("\nMENU DE OPCIONES\n1-Ingresar kilometros\n2-Ingresar precio de vuelo\n3-Calcular costos\n4-Informar resultados\n5-Carga forzada de datos\n6-Salir\nOPCION ELEGIDA: ");
@@ -59,41 +61,81 @@ int main(void) {
 
 		switch(opcion){
 		case 1:
+			flagOpcion1 = 1;
 			printf("\nIngrese los kilometros: ");
 					scanf("%d" , &kilometros);
 
-			while(kilometros < 0){
-					printf("\nLos kilometros no pueden ser negativos, por favor ingrese un numero valido: ");
+			while(kilometros <= 0){
+					printf("\nLos kilometros no pueden ser cero o negativos, por favor ingrese un numero valido: ");
 					scanf("%d" , &kilometros);
 					}
 			break;
 
 		case 2:
-
+			flagOpcion2 = 1;
 			printf("\nIngrese el precio de Aerolineas: ");
 			scanf("%f" , &precioAerolineas);
+			while(precioAerolineas <= 0){
+				printf("\nEl precio no puede ser cero o negativo, Ingrese un precio valido");
+				scanf("%f" , &precioAerolineas);
+			}
 			printf("\nIngrese el precio de Latam: ");
 			scanf("%f" , &precioLatam);
+			while(precioLatam <= 0){
+				printf("\nEl precio no puede ser cero o negativo, Ingrese un precio valido: ");
+				scanf("%f" , &precioLatam);
+			}
 
 			break;
 
 		case 3:
-			printf("\nCOSTOS CALCULADOS CON EXITO\n");
-			calcular = calcularCostos(&kilometros , &precioAerolineas , &precioLatam, 0);
+			if(flagOpcion1 == 1 && flagOpcion2 == 1){
+				calcular = calcularCostos(&kilometros, &precioAerolineas, &precioLatam, 0);
+				if(calcular == 0){
+					printf("\nCOSTOS CALCULADOS CON EXITO\n");
+				}else{
+					printf("Hubo un ERROR al calcular los costos");
+				}
+				flagOpcion3 = 1;
+			}else{
+				printf("\nERROR, para poder calcular los costos PRIMERO DEBE INGRESAR las opciones 1 y 2.\n");
+			}
+
 
 			break;
 
 		case 4:
-			printf("\nLISTA DE LOS COSTOS:\n");
-			mostrar = calcularCostos(&kilometros , &precioAerolineas , &precioLatam, 1);
+			if(flagOpcion3 == 1){
+				mostrar = calcularCostos(&kilometros , &precioAerolineas , &precioLatam, 1);
+				if(mostrar == 0){
+					printf("\nFIN LISTA DE COSTOS\n");
+				}else{
+					printf("HUBO UN ERROR EN LA LISTA");
+				}
+			}else{
+				printf("\nPara poder informar resultados ANTES DEBE ingresar opcion 3\n");
+			}
 
 		break;
 
 		case 5:
-			// cargaForzada = cargaForzadaDeDatos();
+			kilometros = 7090;
+			precioAerolineas = 162965;
+			precioLatam = 159339;
+			cargaForzada = calcularCostos(&kilometros, &precioAerolineas, &precioLatam, 0);
+			cargaForzada = calcularCostos(&kilometros, &precioAerolineas, &precioLatam, 1);
+			if (cargaForzada == 0){
+				printf("\nFIN CARGA FORZADA\n");
+			}else{
+				printf("HUBO UN ERROR EN LA CARGA FORZADA");
+			}
+			flagOpcion1 = 0;
+			flagOpcion2 = 0;
+			flagOpcion3 = 0;
 			break;
 
 		case 6:
+			printf("Saliendo...");
 			break;
 
 		default:
