@@ -29,38 +29,57 @@ La diferencia de precio es : r “
 #include <stdlib.h>
 
 int main(void) {
-	int numero;
+	setbuf(stdout , NULL);
 
-	printf("seleccione una opcion (1-6): ");
-	scanf("%d" ,&numero);
+	int opcion;
+	int kilometros;
+	int precio;
+	int costo;
+	int resultado;
 
-	switch(numero){
-	case 1:
-		printf("selecciono la opcion 1");
-		break;
+	printf("1-Kilometros\n 2-Precio de vuelos\n 3-Calcular los costos\n 4-Informar resultados\n 5-Carga forzada de datos\n 6-Salir\n Seleccione la opcion que desea cargar: ");
+	scanf("%d" , opcion);
 
-	case 2:
-		printf("selecciono la opcion 2");
-		break;
+	do{
+		switch(opcion){
 
-	case 3:
-		printf("selecciono la opcion 3");
-		break;
+		case 1:
+			printf("Ingrese la cantidad de kilometros:\n");
+			scanf("%d" , kilometros);
 
-	case 4:
-		printf("selecciono la opcion 4");
-		break;
+			break;
 
-	case 5:
-		printf("selecciono la opcion 5");
-		break;
+		case 2:
+			printf("Ingrese el precio del vuelo");
+			scanf("%d" , precio);
 
-	case 6:
-		printf("selecciono la opcion 6");
-		break;
+			break;
 
-	default: printf("no ingreso un numero valido");
-	}
+		case 3:
+			printf("Tarjeta de debito: %d\nTarjeta de credito: %d\nBitcoin: %d\nPrecio unitario: %d\nDiferencia de precio: %d" , precio - precio *10/100, precio + precio *25/100 , precio);
+
+			break;
+
+		case 4:
+
+			break;
+
+		case 5:
+
+			break;
+
+
+
+
+		}
+
+		}while(opcion == 6);
+
+
+
+
+
+
 
 
 
